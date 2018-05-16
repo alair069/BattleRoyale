@@ -11,9 +11,9 @@ use BattleRoyale\EntityManager;
 class RoyaleEgg extends Egg {
 
 	public function throwEgg(Player $player){
-	  $bottle = Entity::createEntity("EggLauncher", $player->getLevel(), EntityManager::getCompoundMotion($player), $player);
-  	  $bottle->setMotion($bottle->getMotion()->multiply(2));
-  	  $bottle->spawnToAll();
+	  $egg = Entity::createEntity("EggLauncher", $player->getLevel(), EntityManager::getCompoundMotion($player), $player);
+  	  $egg->setMotion($egg->getMotion()->multiply(6));
+  	  $egg->spawnToAll();
   	  $this->count--;
       $player->getInventory()->setItemInHand($this->count > 0 ? clone $this : Item::get(Item::AIR, 0));
 	}

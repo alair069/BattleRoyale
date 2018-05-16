@@ -13,12 +13,13 @@ use pocketmine\entity\Entity;
 
 class Storm {
 
-	private $arena;
 	public $vector;
-	private $level;
 	public $zone;
 	public $storm;
 	public $status;
+
+	private $level;
+	private $arena;
 
 	const CLOSING = 0;
 	const STABLE = 1;
@@ -30,7 +31,7 @@ class Storm {
 		$this->level = $game->getLevel();
 	}
 
-	public function findZone(){
+	public function findZone(): void{
 		$this->zone = $this->getArena()->getRadius();
 		$this->storm = $this->getCurrentZone();
 		$vector = $this->getVector3();
@@ -41,6 +42,7 @@ class Storm {
 			if($this->getLevel()->getBlockIdAt($x, $y, $z) === 0){
 				$y--;
 			}else{
+				$y++;
 				break;
 			}
 		}
@@ -55,7 +57,7 @@ class Storm {
 		return $this->arena;
 	}
 
-	public function setStatus(int $value){
+	public function setStatus(int $value): void{
 		$this->status = $value;
 	}
 
@@ -108,15 +110,22 @@ class Storm {
 		}
 	}
 
-	public function spawnAirDrop(){
+	public function spawnAirDrop(): void{
 		$vector = $this->getVector3();
-		$x = mt_rand(min($vector->getX(), $this->getCurrentZone()), max($vector->getX(), $this->getCurrentZone()));
-		$z = mt_rand(min($vector->getZ(), $this->getCurrentZone()), max($vector->getZ(), $this->getCurrentZone()));
+		$x = mt_rand(
+			min($vector->getX(), $this->getCurrentZone()), 
+			max($vector->getX(), $this->getCurrentZone())
+		);
+		$z = mt_rand(
+			min($vector->getZ(), $this->getCurrentZone()), 
+			max($vector->getZ(), $this->getCurrentZone())
+		);
 		$y = 128;
 		while($y > 1){
 			if($this->getLevel()->getBlockIdAt($x, $y, $z) === 0){
 				$y--;
 			}else{
+				$y++;
 				break;
 			}
 		}

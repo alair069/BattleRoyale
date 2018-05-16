@@ -15,7 +15,7 @@ class Fireball extends Item {
 
   public function shootBall(Player $player){
   	$fireball = Entity::createEntity("FireEntity", $player->getLevel(), EntityManager::getCompoundMotion($player), $player);
-  	$fireball->setMotion($fireball->getMotion()->multiply(2.3));
+  	$fireball->setMotion($fireball->getMotion()->multiply(4));
   	$fireball->spawnToAll();
   	$this->count--;
   	$player->getInventory()->setItemInHand($this->count > 0 ? clone $this : Item::get(Item::AIR, 0));

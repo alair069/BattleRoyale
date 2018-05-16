@@ -4,15 +4,17 @@ namespace BattleRoyale\Items;
 
 use pocketmine\Player;
 use pocketmine\entity\Effect;
+use pocketmine\entity\EffectInstance;
 use pocketmine\entity\Entity;
+use pocketmine\entity\Living;
 
 class RoyalPotion extends RoyaleFood {
 
 	public function __construct($meta = 0, $count = 1){
-		parent::__construct(373, $meta, $count, "Potion");
+		parent::__construct(373, $meta, $count, "Royale Potion");
 	}
 
-	public function onConsume(Entity $entity){
+	public function onConsume(Living $entity){
 		if($entity instanceof Player){
 			$potion = $this->getEffect();
 			if(is_null($potion)){
@@ -43,12 +45,12 @@ class RoyalPotion extends RoyaleFood {
 
 	public function getEffect(){
 		if($this->getDamage() === 4){
-			$effect = Effect::getEffect(11)->setDuration(45*20)->setAmplifier(0)->setVisible(false);
-			return $effect;
+			$effect = Effect::getEffect(11);
+			return new EffectInstance($effect, 45*20, 0, false);
 		}
 		if($this->getDamage() === 14){
-			$effect = Effect::getEffect(1)->setDuration(60*20)->setAmplifier(0)->setVisible(false);
-			return $effect;
+			$effect = Effect::getEffect(1);
+			return new EffectInstance($effect, 60*20, 0, false);
 		}
 	}
 

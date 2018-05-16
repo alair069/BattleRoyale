@@ -22,14 +22,14 @@ class BattleRoyale extends PluginCommand {
 		return "/battleroyale";
 	}
 
-	public function execute(CommandSender $sender, $label, array $args){
+	public function execute(CommandSender $sender, string $label, array $args): bool{
 		if(!$sender instanceof Player){
 			$sender->sendMessage(TextFormat::RED."No puedes utilizar este comando en la consola!");
-			return;
+			return false;
 		}
 		if(!is_null(Utils::isCreating($sender->getName()))){
 			$sender->sendMessage(TextFormat::GOLD."No puedes ver/entrar a una partida en el modo creador, para salir usa ' leave (salir) '");
-			return;
+			return false;
 		}
 		switch(strtolower($args[0])){
 
@@ -104,6 +104,7 @@ class BattleRoyale extends PluginCommand {
 			break;
 
 		}
+		return true;
 	}
 
 }

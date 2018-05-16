@@ -205,7 +205,9 @@ class BattleRoyaleEvents implements Listener {
 					$session->addZoom();
 				}
 			}else{
-				$player->setXpLevel(0);
+				if($player->getXpLevel() > 0){
+					$player->setXpLevel(0);
+				}
 				if($session->isZoomActivated()){
 					$session->removeZoom();
 				}
@@ -287,8 +289,12 @@ class BattleRoyaleEvents implements Listener {
 						$player->sendMessage(TextFormat::RED."Debes intrucir primero el mundo y el centro de la partida!");
 					}else{
 						$radius = floor($player->distance(Utils::getVector($creator::$options["center"])));
-						$creator->setRadius($radius);
-						$player->sendMessage(TextFormat::GREEN."Has intrucido el radio de la tormenta para esta partida correctamente!");
+						if($radius < 150){
+							$player->sendMessage(TextFormat::RED."La distancia debe ser mayor o igual a 150, distancia introducida:  $radius");
+						}else{
+							$creator->setRadius($radius);
+							$player->sendMessage(TextFormat::GREEN."Has intrucido el radio de la tormenta para esta partida correctamente!");
+						}
 					}
 					break;
 

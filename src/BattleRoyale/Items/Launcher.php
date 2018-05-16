@@ -20,8 +20,8 @@ class Launcher extends Item {
     }
   	$direction = $player->getDirectionVector();
   	$player->knockBack($player, 0, $direction->getX(), $direction->getZ(), 1.2);
-    if(!$player->getDataFlag($player::DATA_FLAGS, $player::DATA_FLAG_GLIDING)){
-      $player->setDataFlag($player::DATA_FLAGS, $player::DATA_FLAG_GLIDING, true);
+    if(!$player->getGenericFlag($player::DATA_FLAG_GLIDING)){
+      $player->setGenericFlag($player::DATA_FLAG_GLIDING, true);
     }
   	$this->count--;
   	$player->getInventory()->setItemInHand($this->count > 0 ? clone $this : Item::get(Item::AIR, 0));

@@ -10,7 +10,7 @@ use pocketmine\entity\EffectInstance;
 class Bandage extends RoyaleFood {
 
   public function __construct($meta = 0, $count = 1){
-    parent::__construct(322, $meta, $count, "Bandage");
+    parent::__construct(322, $meta, "Bandage");
   }
 
   public function onConsume(Living $player){

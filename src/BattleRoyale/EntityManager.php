@@ -15,14 +15,6 @@ abstract class EntityManager extends Living {
 
 	public $width = 1;
 
-	public function initEntity(){
-		parent::initEntity();
-	}
-
-	public function saveNBT(){
-		parent::saveNBT();
-	}
-
 	public function attack(EntityDamageEvent $source){
 		if($source->getCause() !== EntityDamageEvent::CAUSE_VOID){
 			$source->setCancelled();

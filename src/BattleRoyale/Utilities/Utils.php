@@ -5,12 +5,9 @@ namespace BattleRoyale\Utilities;
 use BattleRoyale\GameManager;
 use BattleRoyale\Game\Arena;
 use BattleRoyale\Sessions\Playing;
+use BattleRoyale\Sessions\Creator;
 use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\level\Level;
 use pocketmine\utils\TextFormat;
 use ZipArchive;
 
@@ -45,7 +42,7 @@ class Utils {
 		$session->deleteSession();
 	}
 
-	public static function unzipLevel(string $file){
+	public static function unzipLevel(string $file): ?Level{
 		$zip = new ZipArchive;
 		if(($plugin = GameManager::getInstance())->getServer()->isLevelLoaded($name = str_replace(".zip", "", $file))){
 			$plugin->getServer()->unloadLevel($plugin->getServer()->getLevelByName($name));
@@ -64,28 +61,8 @@ class Utils {
 		if(count($values) < 3){
 			return new Vector3(0, 0, 0);
 		}else{
-			return new Vector3($values[0], $values[1], $values[2]); //x, y, z
+			return new Vector3($values[0], $values[1], $values[2]);
 		}
-	}
-	
-	public static function getNBT(Vector3 $vector): CompoundTag{
-		$data = new CompoundTag("", [
-			new ListTag("Pos", array(
-				new DoubleTag("", $vector->getX()), 
-				new DoubleTag("", $vector->getY()), 
-				new DoubleTag("", $vector->getZ())
-			)),
-			new ListTag("Motion", array(
-				new DoubleTag("", 0.0), 
-				new DoubleTag("", 0.0), 
-				new DoubleTag("", 0.0)
-			)),
-			new ListTag("Rotation", array(
-				new FloatTag("", 0.0), 
-				new FloatTag("", 0.0)
-			))
-		]);
-		return $data;
 	}
 
 	public static function addArena($config, string $arena, string $directory): bool{
@@ -131,7 +108,7 @@ class Utils {
 		return true;
 	}
 
-	public static function isCreating(string $player){
+	public static function isCreating(string $player): ?Creator{
 		return array_key_exists($player, GameManager::$creators) ? GameManager::$creators[$player] : null;
 	}
 

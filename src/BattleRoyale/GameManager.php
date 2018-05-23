@@ -72,7 +72,6 @@ class GameManager extends PluginBase {
 		);
 		foreach($items as $id => $class){
 			ItemFactory::registerItem(new $class(), true);
-			Item::addCreativeItem(new $class());
 		}
 		$entities = array(
 			RoyalAmmo::class,  

@@ -14,7 +14,7 @@ class RoyalCompass extends Item {
 	static $collected = array();
 
 	public function __construct($meta = 0, $count = 1){
-		parent::__construct(345, $meta, $count, "Compass");
+		parent::__construct(345, $meta, "Royale Compass");
 	}
 
 	public function getMaxStackSize(): int{

@@ -11,7 +11,7 @@ use pocketmine\entity\Living;
 class RoyalPotion extends RoyaleFood {
 
 	public function __construct($meta = 0, $count = 1){
-		parent::__construct(373, $meta, $count, "Royale Potion");
+		parent::__construct(373, $meta, "Royale Potion");
 	}
 
 	public function onConsume(Living $entity){
@@ -33,24 +33,24 @@ class RoyalPotion extends RoyaleFood {
 				$effect->setVisible($potion->isVisible());
 				$entity->addEffect($effect);
 			}else{
-				$entity->addEffect($this->getEffect());
+				$entity->addEffect($potion);
 			}
 			parent::onConsume($entity);
 		}
 	}
 
-	public function canReplaceAmplifier(){
+	public function canReplaceAmplifier(): bool{
 		return $this->getDamage() === 4 || $this->getDamage() === 14;
 	}
 
-	public function getEffect(){
+	public function getEffect(): EffectInstance{
 		if($this->getDamage() === 4){
 			$effect = Effect::getEffect(11);
-			return new EffectInstance($effect, 45*20, 0, false);
+			return new EffectInstance($effect, 45 * 20, 0, false);
 		}
 		if($this->getDamage() === 14){
 			$effect = Effect::getEffect(1);
-			return new EffectInstance($effect, 60*20, 0, false);
+			return new EffectInstance($effect, 60 * 20, 0, false);
 		}
 	}
 

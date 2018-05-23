@@ -8,22 +8,13 @@ use pocketmine\network\mcpe\protocol\AddEntityPacket;
 
 abstract class CustomProjectile extends Projectile {
 
-	public $gravity = 0.1;
-	public $drag = 0.25;
 	public $width = 0.25;
 	public $height = 0.25;
-	public $weight = 0.25;
-	public $lenght = 0.25;
-
-	public function initEntity(){
-		parent::initEntity();
-	}
-
-	public function saveNBT(){
-		parent::saveNBT();
-	}
+	public $gravity = 0.03;
+	public $drag = 0.01;
 
 	public function spawnTo(Player $player){
+		parent::spawnTo($player);
 		$packet = new AddEntityPacket();
 		$packet->type = static::NETWORK_ID;
 		$packet->mation = $this->getMotion();
@@ -33,7 +24,6 @@ abstract class CustomProjectile extends Projectile {
 		$packet->yaw = $this->yaw;
 		$packet->metadata = $this->getDataPropertyManager()->getAll();
 		$player->dataPacket($packet);
-		parent::spawnTo($player);
 	}
 
 }

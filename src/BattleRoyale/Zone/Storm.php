@@ -97,7 +97,7 @@ class Storm {
 	}
 
 	public function removeZone(): bool{
-		if($this->zone > 25){
+		if($this->getCurrentZone() > 25){
 			$position = $this->getCurrentZone() - 30;
 			if($position > 25){
 				$this->zone = $position;
@@ -129,7 +129,7 @@ class Storm {
 				break;
 			}
 		}
-		$airdrop = Entity::createEntity("BoxEntity", $this->getLevel(), Utils::getNBT(new Vector3($x, $y, $z)));
+		$airdrop = Entity::createEntity("BoxEntity", $this->getLevel(), Entity::createBaseNBT(new Vector3($x, $y, $z)));
 		$airdrop->spawnToAll();
 	}
 
@@ -139,24 +139,11 @@ class Storm {
 		}else{
 			return $player->distance($this->getVector3()) <= $this->getStorm();
 		}
-		/*
-		$times = 0;
-		$vector = $this->getVector33();
-		$vectorx = abs($vector->getX());
-		$vectorz = abs($vector->getZ());
-		if(abs($x) <= $vectorx || -$x >= $vectorx){
-			$times++;
-		}
-		if(abs($z) <= $vectorz || -$z >= $vectorz){
-			$times++;
-		}
-		return $times > 1;
-		*/
 	}
 
-	public function updateZone(){
+	public function updateZone(): void{
 		if($this->getStorm() > $this->getCurrentZone()){
-			$this->storm -= 1;
+			$this->storm--;
 			if($this->getStatus() === Storm::STABLE){
 				$this->setStatus(Storm::CLOSING);
 			}

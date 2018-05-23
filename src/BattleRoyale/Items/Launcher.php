@@ -4,14 +4,11 @@ namespace BattleRoyale\Items;
 
 use pocketmine\item\Item;
 use pocketmine\Player;
-use pocketmine\block\Block;
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
 
 class Launcher extends Item {
 
   public function __construct($meta = 0, $count = 1){
-    parent::__construct(288, $meta, $count, "Launcher");
+    parent::__construct(288, $meta, "Launcher");
   }
   
   public function launchPlayer(Player $player, bool $falling){

@@ -120,7 +120,7 @@ class Arena {
 			}
 		}
 		foreach($this->getLevel()->getEntities() as $entity){
-			if($entity instanceof AirDrop){
+			if($entity instanceof BoxEntity){
 				$entity->close();
 			}
 		}
@@ -222,7 +222,7 @@ class Arena {
 			if($this->countdown === 1){
 				foreach($this->getPlayers(true) as $session){
 					$session->sendMessage(TextFormat::BOLD.TextFormat::WHITE."Battle Royale ".TextFormat::RESET.TextFormat::GRAY."> ".TextFormat::RESET.TextFormat::YELLOW."La partida ha comenzado, buena suerte!");
-					$session->getPlayer()->teleport($this->getStorm()->getVector3()->add(0, 100, 0));
+					$session->getPlayer()->teleport($this->asPosition($this->getStorm()->getVector3()->add(0, 100)));
 					$session->startGame();
 					BossManager::addWindow($session->getPlayer());
 				}

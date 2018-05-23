@@ -20,8 +20,8 @@ class EggLauncher extends CustomProjectile {
 		}
 	}
 
-	public function onUpdate(int $currentTick): bool{
-		parent::onUpdate($currentTick);
+	public function entityBaseTick(int $tickDiff = 1): bool{
+		$hasUpdate = parent::entityBaseTick($tickDiff);
 		if(!$this->isCollided){
 			$this->build();
 		}else{
@@ -29,7 +29,7 @@ class EggLauncher extends CustomProjectile {
 				$this->close();
 			}
 		}
-		return true;
+		return $hasUpdate;
 	}
 
 }
